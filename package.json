@@ -1,12 +1,16 @@
 {
-	"dependencies": {
-		"@fastify/multipart": "^8.1.0",
-		"@types/node": "^20.11.6",
-		"fastify": "^4.25.2",
-		"fastify-favicon": "^4.3.0",
-		"minio": "^7.1.3"
-	},
-	"devDependencies": {
-		"dotenv": "^16.4.0"
-	}
+  "scripts": {
+    "start": "tsx src/server.ts"
+  },
+  "dependencies": {
+    "@fastify/multipart": "^8.1.0",
+    "@types/node": "^20.11.6",
+    "fastify": "^4.25.2",
+    "fastify-favicon": "^4.3.0",
+    "minio": "^7.1.3"
+  },
+  "devDependencies": {
+    "dotenv": "^16.4.0",
+    "tsx": "^4.7.0"
+  }
 }
