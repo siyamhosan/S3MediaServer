@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>File Upload</title>
+  </head>
+  <body>
+    <h1>Password Validation</h1>
+    <form action="/upload" method="post" id="uploadForm">
+      <input
+        type="password"
+        id="password"
+        name="pass"
+        placeholder="Enter password"
+      />
+      <input type="file" name="file" id="file" />
+      <button type="submit">Submit</button>
+    </form>
+    <br />
+    <br />
+    <p id="unauthText" style="display: none">Unauthorized</p>
+  </body>
+</html>
