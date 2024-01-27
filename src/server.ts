@@ -54,6 +54,61 @@ server.get<TransParams>("/trans/:bucket/:id", async (request, reply) => {
     });
 });
 
+interface FileRequest extends RouteGenericInterface {
+  Params: {
+    bucket?: string;
+    id?: string;
+  };
+}
+
+server.get<FileRequest>("/file/:bucket/:id", async (request, reply) => {
+  let id = request.params.id;
+  const bucket = request.params.bucket;
+
+  if (!id || !bucket) {
+    return reply.status(400).type("text/html").send(notFoundHtml);
+  }
+
+  await getFile(id, bucket)
+    .catch((err) => {
+      return reply.status(400).type("text/html").send(notFoundHtml);
+    })
+    .then(async (fileBuffer) => {
+      if (!fileBuffer) {
+        return reply.status(400).type("text/html").send(notFoundHtml);
+      }
+
+      const file = fileBuffer;
+
+      let type;
+      switch (id.split(".").pop()) {
+        case "html":
+          type = "text/html";
+          break;
+        case "css":
+          type = "text/css";
+          break;
+        case "js":
+          type = "text/javascript";
+          break;
+        case "png":
+          type = "image/png";
+          break;
+        case "jpg":
+          type = "image/jpeg";
+          break;
+        case "jpeg":
+          type = "image/jpeg";
+          break;
+        default:
+          type = "text/plain";
+          break;
+      }
+
+      return reply.status(200).type(type).send(file);
+    });
+});
+
 interface PublicParams extends RouteGenericInterface {
   Params: {
     file?: string;
@@ -91,6 +146,15 @@ server.get<PublicParams>("/public/:file", async (request, reply) => {
           break;
         case "js":
           type = "text/javascript";
+          break;
+        case "png":
+          type = "image/png";
+          break;
+        case "jpg":
+          type = "image/jpeg";
+          break;
+        case "jpeg":
+          type = "image/jpeg";
           break;
         default:
           type = "text/plain";
